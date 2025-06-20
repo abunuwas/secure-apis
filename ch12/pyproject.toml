@@ -1,0 +1,21 @@
+[project]
+name = "ch12"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115.12",
+    "opentelemetry-distro>=0.53b0",
+    "opentelemetry-exporter-otlp>=1.32.0",
+    "psycopg>=3.2.7",
+    "python-jose>=3.4.0",
+    "sqlalchemy>=2.0.40",
+    "uvicorn>=0.34.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+    "schemathesis>=3.39.16",
+]
