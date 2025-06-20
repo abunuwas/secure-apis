@@ -39,11 +39,11 @@ session_maker = sessionmaker(bind=engine)
 
 
 @server.post(
-    "/payments-vulnerable",
+    "/vulnerable/payments",
     response_model=PaymentSchema,
     status_code=status.HTTP_201_CREATED,
 )
-async def make_payment(request: Request):
+async def vulnerable_make_payment(request: Request):
     with session_maker() as session:
         payload = await request.body()
         payment = PaymentModel(**json.loads(payload))
@@ -58,7 +58,7 @@ async def make_payment(request: Request):
 
 
 @server.post(
-    "/payments-safe",
+    "/payments",
     response_model=PaymentSchema,
     status_code=status.HTTP_201_CREATED,
 )

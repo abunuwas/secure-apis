@@ -56,10 +56,7 @@ recent_transactions: list[Transaction] = []
 
 
 @server.middleware("http.request")
-async def prevent_scalping(
-    request: Request,
-    call_next,
-):
+async def prevent_scalping(request: Request, call_next):
     if not any(agent in request.headers["user-agent"] for agent in allowed_agents):
         return JSONResponse(status_code=401, content={"error": "Unauthorized"})
 
