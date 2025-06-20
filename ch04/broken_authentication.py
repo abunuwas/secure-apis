@@ -1,13 +1,12 @@
 import base64
 import json
-from datetime import datetime, timezone
 from typing import Annotated
 
 import requests
 from fastapi import HTTPException, Depends, FastAPI
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jwcrypto import jwt, jwk
-from jwcrypto.jwt import JWTInvalidClaimValue
+from jwcrypto.jwt import JWTInvalidClaimValue, JWTExpired
 from pydantic import BaseModel
 
 
@@ -30,8 +29,8 @@ def find_public_key(kid):
             return key
 
 
-@server.get("/validate-token-vulnerable")
-def validate_token_vulnerable(
+@server.get("/vulnerable/validate-token")
+def vulnerable_validate_token(
     credentials: Annotated[HTTPAuthorizationCredentials, Depends(security)],
 ):
     try:
@@ -45,7 +44,7 @@ def validate_token_vulnerable(
             algs=["RS256"],
         )
         return encrypted_token.claims
-    except (JWTInvalidClaimValue,) as error:
+    except (JWTInvalidClaimValue, JWTExpired) as error:
         raise HTTPException(status_code=401, detail=str(error))
 
 
@@ -64,9 +63,8 @@ def validate_token(
             algs=["RS256"],
             check_claims={
                 "aud": "https://apithreats.com/admin",
-                "exp": datetime.now(timezone.utc).timestamp(),
             },
         )
         return encrypted_token.claims
-    except (JWTInvalidClaimValue,) as error:
+    except (JWTInvalidClaimValue, JWTExpired) as error:
         raise HTTPException(status_code=401, detail=str(error))
