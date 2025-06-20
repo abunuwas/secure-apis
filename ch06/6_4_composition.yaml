@@ -6,7 +6,7 @@ paths:
           application/json:
             schema:
               oneOf:
-                - $ref: "#/components/schemas/EBook"
+                - $ref: "#/components/schemas/Ebook"
                 - $ref: "#/components/schemas/PrintedBook"
 
 components:
