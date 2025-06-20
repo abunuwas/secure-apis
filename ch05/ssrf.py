@@ -12,14 +12,14 @@ def secret():
     return "secret"
 
 
-@server.get("/ssrf-vulnerable")
-def ssrf_vulnerable(url: str):
+@server.get("/vulnerable/ssrf")
+def vulnerable_ssrf(url: str):
     response = requests.get(url)
     return response.content
 
 
-@server.get("/ssrf-mitigated")
-def ssrf_mitigated(url: str):
+@server.get("/ssrf")
+def ssrf(url: str):
     if any(domain in url for domain in bad_domains):
         raise HTTPException(status_code=422, detail=f"Forbidden domain in {url}")
     response = requests.get(url)
