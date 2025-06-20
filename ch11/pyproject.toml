@@ -1,0 +1,13 @@
+[project]
+name = "ch11 - Observability for API security"
+version = "1.0.0"
+description = "Code samples for chapter 11 of Secure APIs"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115.12",
+    "opentelemetry-distro>=0.53b0",
+    "opentelemetry-exporter-otlp>=1.32.0",
+    "python-jose>=3.4.0",
+    "uvicorn>=0.34.0",
+]
