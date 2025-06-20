@@ -1,0 +1,40 @@
+paths:
+  /books:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: "#/components/schemas/EBook"
+                - $ref: "#/components/schemas/PrintedBook"
+
+components:
+  schemas:
+    BaseBook:
+      type: object
+      required:
+        - author
+        - title
+      properties:
+        title:
+          type: string
+        author:
+          type: string
+
+    Ebook:
+      allOf:
+        - $ref: "#/components/schemas/BaseBook"
+        - type: object
+          properties:
+            byte_size:
+              type: integer
+
+    PrintedBook:
+      allOf:
+        - $ref: "#/components/schemas/BaseBook"
+        - type: object
+          properties:
+            pages:
+              type: integer
+

@@ -1,0 +1,23 @@
+paths:
+  /books/{book_id}/reviews:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookReview"
+
+components:
+  schemas:
+    BookReview:
+      type: object
+      required:
+        - rating
+        properties:
+          rating:
+            type: integer
+            minimum: 1
+            maximum: 5
+          review:
+            type: string
+            maxLength: 2000

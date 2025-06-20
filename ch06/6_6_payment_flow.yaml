@@ -1,0 +1,55 @@
+arazzo: 1.0.0
+info:
+  title: Checkout flow
+  version: 1.0.0
+sourceDescriptions:
+  - name: orders
+    url: ./orders.yaml
+    type: openapi
+workflows:
+  - workflowId: checkout
+    steps:
+      - stepId: product-detail
+        operationId: product-detail
+        parameters:
+          - name: product_id
+            in: path
+        successCriteria:
+          - condition: $statusCode == 200
+      - stepId: create-cart
+        operationId: create-cart
+        parameters:
+          - name: product_id
+            in: body
+        successCriteria:
+          - condition: $statusCode == 201
+        outputs:
+          cart_id: $response.body.id
+      - stepId: calculate-price
+        operationId: calculate-price
+        parameters:
+          - name: cart_id
+            in: path
+            value: $steps.create-cart.outputs.cart_id
+        successCriteria:
+          - condition: $statusCode == 200
+      - stepId: delivery-slot
+        operationId: book-delivery-slot
+        parameters:
+          - name: cart_id
+            in: path
+            value: $steps.create-cart.outputs.cart_id
+        successCriteria:
+          - condition: $statusCode == 200
+      - stepId: payment
+        operationId: make-payment
+        parameters:
+          - name: cart_id
+            in: path
+            value: $steps.create-cart.outputs.cart_id
+        successCriteria:
+          - condition: $statusCode == 201
+        outputs:
+          payment_id: $response.body.id
+    outputs:
+      payment_id: $steps.payment.outputs.payment_id

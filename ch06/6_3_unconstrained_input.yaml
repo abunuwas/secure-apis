@@ -1,0 +1,20 @@
+paths:
+  /books/{book_id}/reviews:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookReview"
+
+components:
+  schemas:
+    BookReview:
+      type: object
+      required:
+        - rating
+      properties:
+        rating:
+          type: integer
+        review:
+          type: string

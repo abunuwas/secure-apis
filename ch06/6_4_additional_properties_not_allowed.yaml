@@ -1,0 +1,54 @@
+paths:
+  /orders:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlaceOrder"
+      responses:
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+
+components:
+  schemas:
+    PlaceOrder:
+      type: object
+      required:
+        - product
+        - quantity
+      properties:
+        product:
+          type: string
+          format: UUID
+        quantity:
+          type: integer
+      additionalProperies: false
+
+    Order:
+      type: object
+      required:
+        - status
+        - id
+        - product
+        - quantity
+      properties:
+        id:
+          type: string
+          format: UUID
+        status:
+          type: string
+          enum:
+            - placed
+            - paid
+            - delivered
+            - returned
+        product:
+          type: string
+          format: UUID
+        quantity:
+          type: integer
+

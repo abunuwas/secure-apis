@@ -1,0 +1,31 @@
+paths:
+  /books:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Book"
+
+components:
+  schemas:
+    Book:
+      type: object
+      required:
+        - author
+        - title
+        - format
+      properties:
+        title:
+          type: string
+        author:
+          type: string
+        format:
+          type: string
+          enum:
+            - print
+            - ebook
+        pages:
+          type: integer
+        byte_size:
+          type: integer
