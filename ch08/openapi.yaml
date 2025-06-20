@@ -1,0 +1,40 @@
+openapi: 3.1.1
+info:
+  title: Documenting security with OpenAPI
+  version: v1.0
+security:
+  - JWTBearer: []
+paths:
+  /hello:
+    get:
+      security: []
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /protected-hello:
+    get:
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+components:
+  securitySchemes:
+    JWTBearer:
+      description: Bearer JSON Web Token
+      type: http
+      scheme: Bearer
+      bearerFormat: JWT
+

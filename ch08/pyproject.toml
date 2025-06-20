@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "ch08"
-version = "0.1.0"
+name = "ch08 - Adding authentication and authorization to APIs"
+version = "1.0.0"
 description = ""
 authors = ["Jose Haro Peralta <jose@microapis.io>"]
 readme = "README.md"
