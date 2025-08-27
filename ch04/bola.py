@@ -49,7 +49,7 @@ server = FastAPI()
 
 @server.get("/vulnerable/orders/{order_id}")
 def vulnerable_get_order_details(
-    order_id: uuid.UUID, user_claims: UserClaims = Depends(validate_access)
+    order_id: int, user_claims: UserClaims = Depends(validate_access)
 ):
     with session_maker() as session:
         order = session.scalar(select(OrderModel).where(OrderModel.id == order_id))
