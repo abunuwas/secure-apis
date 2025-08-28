@@ -11,9 +11,9 @@ jwk_key.import_from_pem(data=signing_key.encode())
 now = datetime.now(timezone.utc)
 
 payload = {
-    "iss": "https://auth.pyjobs.works",
+    "iss": "https://auth.apithreats.com",
     "sub": "23456543",
-    "aud": "https://pyjobs.works/jobs",
+    "aud": "https://apithreats.com/api",
     "iat": now.timestamp(),
     "exp": (now + timedelta(hours=1)).timestamp(),
 }

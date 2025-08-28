@@ -6,10 +6,10 @@ now = datetime.now(timezone.utc)
 
 payload = {
     "iss": "https://auth.apithreats.com",
-    "sub": "10",
-    "aud": "https://pyconus2024.com",
-    "iat": now.timestamp(),
-    "exp": (now + timedelta(hours=1)).timestamp(),
+    "sub": "23456543",
+    "aud": "https://apithreats.com/api",
+    "iat": now,
+    "exp": (now + timedelta(hours=1)),
 }
 
 
