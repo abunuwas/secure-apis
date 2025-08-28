@@ -9,7 +9,7 @@ payload = {
     "sub": "23456543",
     "aud": "https://apithreats.com/api",
     "iat": now,
-    "exp": (now + timedelta(hours=1)).timestamp(),
+    "exp": (now + timedelta(hours=1)),
 }
 
 print(jwt.encode(payload=payload, key="password", algorithm="HS256"))
