@@ -6,11 +6,11 @@ from jose import jwt
 now = datetime.now(timezone.utc)
 
 payload = {
-    "iss": "https://auth.pyjobs.works",
-    "sub": "10",
-    "aud": "https://pyjobs.works/jobs",
-    "iat": now.timestamp(),
-    "exp": (now + timedelta(hours=1)).timestamp(),
+    "iss": "https://auth.apithreats.com",
+    "sub": "23456543",
+    "aud": "https://apithreats.com/api",
+    "iat": now,
+    "exp": (now + timedelta(hours=1)),
 }
 
 signing_key = Path("private_key.pem").read_text()
