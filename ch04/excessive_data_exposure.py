@@ -2,7 +2,7 @@ import uuid
 
 from fastapi import FastAPI, HTTPException, Depends
 from pydantic import BaseModel
-from sqlalchemy import create_engine, select
+from sqlalchemy import create_engine, select, String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, sessionmaker
 
 from auth import validate_access, UserClaims
@@ -11,7 +11,9 @@ server = FastAPI()
 
 
 class Base(DeclarativeBase):
-    id: Mapped[str] = mapped_column(str, primary_key=True, default=uuid.uuid4)
+    id: Mapped[str] = mapped_column(
+        String, primary_key=True, default=lambda: str(uuid.uuid4())
+    )
 
 
 class ProjectModel(Base):
@@ -62,7 +64,7 @@ class SetMeUp(BaseModel):
     email: str
 
 
-@server.put("/set-me-up", response_model=UserModel)
+@server.put("/set-me-up", response_model=UserProfileSchema)
 def set_me_up(
     user_details: SetMeUp, user_claims: UserClaims = Depends(validate_access)
 ):
@@ -113,7 +115,9 @@ async def vulnerable_query_user(
 async def query_user(email: str, user_claims: UserClaims = Depends(validate_access)):
     with session_maker() as session:
         requesting_user = session.scalar(
-            UserModel.id == user_claims.sub,
+            select(UserModel).where(
+                UserModel.id == user_claims.sub,
+            )
         )
         requested_user = session.scalar(
             select(UserModel).where(
