@@ -17,11 +17,11 @@ Then activate the environment:
 You also need to install a couple of npm dependencies. Make sure you install node, npm, and nvm in your 
 machine, then run the following command to install and use the right version of node for this project:
 
-```nvm install 18.0.0```
+```nvm install 18.18```
 
 and
 
-```nvm use 18.0.0```
+```nvm use 18.18```
 
 Then install the npm dependencies:
 
