@@ -42,6 +42,7 @@ BOLA is illustrated in bola.py. To run the example, use the following command:
 Visit https://localhost:8000/docs to load the Swagger UI for this API.
 
 It contains 2 endpoints:
+
 * GET `/vulnerable/orders/{order_id}`, which is vulnerable to BOLA
 * GET `/orders/{order_id}`, which is not vulnerable to BOLA
 
@@ -54,6 +55,7 @@ Broken authentication is illustrated in broken_authentication.py. To run the exa
 Visit https://localhost:8000/docs to load the Swagger UI for this API.
 
 It contains 2 endpoints:
+
 * GET `/vulnerable/validate-token`, which is vulnerable to broken authentication
 * GET `/validate-token`, which is not vulnerable to broken authentication
 
@@ -63,6 +65,7 @@ First, obtain an access token by logging in with https://apithreats.com/login. F
 `access_token.token` property of the resulting payload.
 
 Then, use that token to authorize your requests. To do that, go back to http://localhost:8000/docs and:
+
 1. Click on the Authorize button on the to-right corner of the screen
 2. In the modal, paste the access token from apithreats.com and click Authorize
 
@@ -79,6 +82,7 @@ Mass assignment is illustrated in mass_assignment.py. To run the example, use th
 Visit https://localhost:8000/docs to load the Swagger UI for this API.
 
 It contains 2 endpoints:
+
 * GET `/vulnerable/payments`, which is vulnerable to mass assignment
 * GET `/payments/`, which is not vulnerable to mass assignment
 
@@ -91,6 +95,7 @@ BOLA is illustrated in bola.py. To run the example, use the following command:
 Visit https://localhost:8000/docs to load the Swagger UI for this API.
 
 It contains 3 endpoints:
+
 * POST `/set-me-up`, which allows you to configure your user as working for a certain project
 * GET `/vulnerable/query-user`, which is vulnerable to excessive data exposure
 * GET `/query-user`, which is not vulnerable to excessive data exposure
@@ -110,6 +115,7 @@ BFLA is illustrated in bfla.py. To run the example, use the following command:
 Visit https://localhost:8000/docs to load the Swagger UI for this API.
 
 It contains 2 endpoints:
+
 * GET `/vulnerable/admin`, which is vulnerable to bfla
 * GET `/admin/`, which is not vulnerable to bfla
 
@@ -125,6 +131,7 @@ Unrestricted access to sensitive business flows is illustrated in bfla.py. To ru
 Visit https://localhost:8000/docs to load the Swagger UI for this API.
 
 It contains 2 endpoints:
+
 * GET `/tickets`
 * GET `/checkout/`
 
