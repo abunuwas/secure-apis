@@ -65,7 +65,7 @@ async def prevent_scalping(request: Request, call_next):
     if request.url.path == "/checkout":
         for transaction in recent_transactions:
             if transaction.sub == user_claims.sub and transaction.within_24h:
-                return JSONResponse(status_code=401, content={"error": "Unauthorized"})
+                return JSONResponse(status_code=409, content={"error": "Conflict"})
 
     return await call_next(request)
 

@@ -1,4 +1,5 @@
 from datetime import datetime
+from uuid import UUID
 
 import pytest
 from sqlalchemy import select
@@ -28,12 +29,12 @@ def test_bola():
                 CourseRegistration.student_id != student.id
             )
         )
-    token = create_access_token(sub="test")
+    token = create_access_token(sub=str(student.id))
     response = client.get(
         f"/registrations/{registration.id}",
         headers={"Authorization": f"Bearer {token}"},
     )
-    assert response.status_code == 401
+    assert response.status_code == 403
 
 
 def test_rbac():
@@ -41,11 +42,11 @@ def test_rbac():
     response = client.get(
         "/admin/students", headers={"Authorization": f"Bearer {token}"}
     )
-    assert response.status_code == 401
+    assert response.status_code == 403
 
 
 @pytest.fixture
-def new_student_voucher():
+def new_student_voucher() -> tuple[UUID, str]:
     student_details = {
         "first_name": "John",
         "last_name": "Connor",
@@ -63,13 +64,13 @@ def new_student_voucher():
 
 
 @pytest.fixture
-def course_id():
+def course_id() -> UUID:
     with session_maker() as session:
         course = session.scalar(select(Course))
         return course.id
 
 
-def test_coupon_code_reuse(new_student_voucher, course_id):
+def test_coupon_code_reuse(new_student_voucher: tuple[UUID, str], course_id: str):
     student_id, voucher_id = new_student_voucher
     token = create_access_token(sub=str(student_id))
     registration_payload = {
@@ -92,7 +93,7 @@ def test_coupon_code_reuse(new_student_voucher, course_id):
     assert second_registration.status_code == 409
 
 
-def test_coupon_abuse(new_student_voucher, course_id):
+def test_coupon_abuse(new_student_voucher: tuple[UUID, str], course_id: str):
     new_student_id, new_voucher_id = new_student_voucher
     with session_maker() as session:
         student = session.scalar(select(Student).where(Student.id != new_student_id))
@@ -108,4 +109,4 @@ def test_coupon_abuse(new_student_voucher, course_id):
         headers={"Authorization": f"Bearer {token}"},
         json=registration_payload,
     )
-    assert registration.status_code == 401
+    assert registration.status_code == 403

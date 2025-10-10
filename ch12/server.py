@@ -203,5 +203,7 @@ def get_registration_details(
     registration_id: UUID, user_claims: UserClaims = Depends(authorize_access)
 ):
     with session_maker() as session:
-        registration = session.scalar(select(CourseRegistration))
+        registration = session.scalar(
+            select(CourseRegistration).where(CourseRegistration.id == registration_id)
+        )
         return registration.dict(include_student=True)
