@@ -29,7 +29,7 @@ class UserModel(Base):
     project: Mapped[str]
 
 
-class GetUserProfileSchema(BaseModel):
+class UserProfileSchema(BaseModel):
     id: str
     full_name: str
     email: str
@@ -85,7 +85,7 @@ def set_me_up(
 
 @server.get(
     "/vulnerable/query-user",
-    response_model=GetUserProfileSchema,
+    response_model=UserProfileSchema,
 )
 async def vulnerable_query_user(
     email: str, user_claims: UserClaims = Depends(validate_access)
@@ -108,7 +108,7 @@ async def vulnerable_query_user(
 
 @server.get(
     "/query-user",
-    response_model=GetUserProfileSchema,
+    response_model=UserProfileSchema,
 )
 async def query_user(email: str, user_claims: UserClaims = Depends(validate_access)):
     with session_maker() as session:
