@@ -28,9 +28,11 @@ class MakePaymentSchema(BaseModel):
     currency: str
 
 
-class PaymentSchema(MakePaymentSchema):
+class PaymentSchema(BaseModel):
     id: uuid.UUID
     status: str
+    amount: float
+    currency: str
 
 
 engine = create_engine("sqlite:///mass_assignment.db")
