@@ -1,4 +1,4 @@
-# Chapter 8: Implementing API authentication and authorization
+# Chapter 11: Observability for API security
 
 This chapter teaches you how to leverage observability for API security using the OpenTelemetry standard.
 
